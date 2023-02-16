@@ -4,7 +4,10 @@
     Author     : alexc
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,10 +22,18 @@
             <form action="ShoppingList" method="post">
                 Add Item: <input type="text" name="item">
                  <input type="submit" value="Add"><br>
+                 <input type="hidden" name="action" value="add">
                  <br>
-                 <input type="radio" id="groceries" name="grocery_cart" value="cart">
-                 <label for="groceries">${cart}</label><br>
+        
             </form>
+            
+            <form action="" method="post">
+                <c:forEach items="${groceryList}" var="item"><c/>
+                    <li><input type="radio" name="contents" value="${cart}">${cart}</li>
+                    <input type="submit" value="Delete">
+                    <input type="hidden" name="action" value="delete">
+                </form>
+         
 
     </body>
 </html>

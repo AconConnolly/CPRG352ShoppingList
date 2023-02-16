@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,19 +27,33 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String action = request.getParameter("action");
+        
+        if (action.equals("register")) {
         String username = request.getParameter("username");
         request.setAttribute("username",username);
-        
         session.setAttribute("user",username);
+        ArrayList<String> cart = new ArrayList<>();
+        }
+        
+        else if (action.equals("add")) {
+            String item = request.getParameter("item");
+            ArrayList<String> cart = new ArrayList<>();
+            cart.add(item);
+            request.setAttribute("cart",cart);
+            getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp")
+                .forward(request, response);
+
+        }
+        
         
         getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp")
                 .forward(request, response);
         
-        String item = request.getParameter("item");
         
-        ArrayList<String> cart = new ArrayList<>();
-        cart.add(item);
-        request.setAttribute("cart",cart);
+        
+        
+        
         
         getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp")
                 .forward(request, response);
